@@ -20,7 +20,6 @@ var Rabbit = {
 				ch.sendToQueue(q, new Buffer(data));
 			});
 			setTimeout(function() { conn.close(); }, 500);
-			return true;
 		});
 	},
 
@@ -38,7 +37,11 @@ var Rabbit = {
 				var q = config[queue];
 
 				ch.assertQueue(q, {durable: false});
-				ch.consume(q, callback, {noAck: true});
+				ch.prefetch(1);
+				ch.consume(q, function(msg) {
+					callback(msg, ch);
+				});
+
 			});
 		});
 	}

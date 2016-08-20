@@ -1,5 +1,6 @@
 var Config = {
-	liveUrl: 'https://m.skybet.com/football',
+	baseUrl: 'https://m.skybet.com',
+	liveUrl: 'https://m.skybet.com/football'
 }
 
 module.exports = Config;
