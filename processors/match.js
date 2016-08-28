@@ -10,8 +10,9 @@ var Match = {
 		dataDriver.get('matchQueue', function(msg, ch) {
 			var data = JSON.parse(msg.content.toString());
 		    var crawler = require('../crawlers/' + data.site + '/match');
-		    crawler.crawl(data.match);
-			ch.ack(msg);
+		    crawler.crawl(data.match, function(){
+				ch.ack(msg);
+			});
 		});
 	}
 }
