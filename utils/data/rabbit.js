@@ -18,7 +18,7 @@ var Rabbit = {
 				ch.assertQueue(q, {durable: false});
 				// Note: on Node 6 Buffer.from(msg) should be used
 				ch.sendToQueue(q, new Buffer(data));
-				console.log('Added to queue: ' + config[queue]);
+				log.info('Added to queue: ' + config[queue]);
 			});
 			setTimeout(function() { conn.close(); }, 500);
 		});
@@ -40,7 +40,7 @@ var Rabbit = {
 				ch.assertQueue(q, {durable: false});
 				ch.prefetch(1);
 				ch.consume(q, function(msg) {
-					console.log('Retrieved item from queue: ' + config[queue]);
+					log.info('Retrieved item from queue: ' + config[queue]);
 					callback(msg, ch);
 				});
 

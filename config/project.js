@@ -1,5 +1,6 @@
 var Config = {
-	saver: 'rabbit'
+	saver: 'rabbit',
+	logLevel: 'debug'
 }
 
 module.exports = Config;

@@ -1,10 +1,10 @@
 var Parser = {
 	/**
-	 * Retrieve a list of live games from the given html
+	 * Retrieve a list of live matches from the given html
 	 * @param  {string} html The html of the skybet football page
-	 * @return {array} array of unique live football urls
+	 * @return {array} array of unique live football match urls
 	 */
-	getGames: function(html) {
+	getMatches: function(html) {
 		return array_unique(
 			html.match(/\/football\/football-live\/event\/([0-9]*)/g)
 		);

@@ -3,7 +3,7 @@ var projectConfig = require('../../config/project');
 var skybetConfig = require('../../config/skybet');
 var dataDriver = require('../../utils/data/' + projectConfig.saver);
 
-var match = {
+var Match = {
     crawl: function(url) {
         request({
         	uri: skybetConfig.baseUrl + url,
@@ -11,7 +11,7 @@ var match = {
         	if (error) {
         		throw 'Error retrieving live match on SkyBet: ' + error;
         	}
-            console.log(skybetConfig.baseUrl + url + ' scraped. Adding to queue');
+            log.info(skybetConfig.baseUrl + url + ' scraped. Adding to queue');
             dataDriver.save(
         		'matchSourceQueue',
         		JSON.stringify({
@@ -23,4 +23,4 @@ var match = {
     }
 }
 
-module.exports = match;
+module.exports = Match;
