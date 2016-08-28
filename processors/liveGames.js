@@ -1,5 +1,9 @@
+/**
+ * Get the source of a page from our queue, grab a list of live match urls
+ * and add the urls to our queue.
+ */
+
 var projectConfig = require('../config/project');
-var skybetConfig = require('../config/skybet');
 var dataDriver = require('../utils/data/' + projectConfig.saver);
 
 dataDriver.get('sourceQueue', function(msg, ch) {

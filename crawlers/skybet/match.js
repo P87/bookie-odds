@@ -11,7 +11,7 @@ var match = {
         	if (error) {
         		throw 'Error retrieving live match on SkyBet: ' + error;
         	}
-
+            console.log(skybetConfig.baseUrl + url + ' scraped. Adding to queue');
             dataDriver.save(
         		'matchSourceQueue',
         		JSON.stringify({

@@ -1,5 +1,8 @@
+/**
+ * Get a url for a live game out of the queue and crawl it.
+ */
+
 var projectConfig = require('../config/project');
-var skybetConfig = require('../config/skybet');
 var dataDriver = require('../utils/data/' + projectConfig.saver);
 
 dataDriver.get('matchQueue', function(msg, ch) {

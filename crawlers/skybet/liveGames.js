@@ -1,3 +1,8 @@
+/**
+ * Get the source code for the page containing a list of live games and
+ * add the source to our queue.
+ */
+
 var request = require('request');
 var projectConfig = require('../../config/project');
 var skybetConfig = require('../../config/skybet');
@@ -10,5 +15,6 @@ request({
 		throw 'Error retrieving live games on SkyBet: ' + error;
 	}
 
+	console.log(skybetConfig.liveUrl + ' scraped. Adding to queue...');
 	dataDriver.save('sourceQueue', JSON.stringify({site: 'skybet', content: body}));
 });
