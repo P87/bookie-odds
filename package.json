@@ -2,7 +2,7 @@
   "name": "p87-bookie-scrapers",
   "version": "0.0.0",
   "description": "Scrapers for retrieving in play football matches and their stats/odds",
-  "main": "crawlers/skybet/liveGames.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "amqplib": "^0.4.2",
+    "bunyan": "^1.8.1",
+    "phantom": "^2.1.20",
     "request": "^2.74.0"
   }
 }

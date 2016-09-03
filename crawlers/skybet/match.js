@@ -1,26 +1,46 @@
-var request = require('request');
 var projectConfig = require('../../config/project');
 var skybetConfig = require('../../config/skybet');
 var dataDriver = require('../../utils/data/' + projectConfig.saver);
 
-var match = {
-    crawl: function(url) {
-        request({
-        	uri: skybetConfig.baseUrl + url,
-        }, function(error, response, body) {
-        	if (error) {
-        		throw 'Error retrieving live match on SkyBet: ' + error;
-        	}
-            console.log(skybetConfig.baseUrl + url + ' scraped. Adding to queue');
-            dataDriver.save(
-        		'matchSourceQueue',
-        		JSON.stringify({
-        			site: 'skybet',
-        			content: body
-        		})
-        	);
-        });
+var Match = {
+    crawl: function(url, callback) {
+        var phantom = require('phantom');
+        var sitepage = null;
+        var phInstance = null;
+        phantom.create()
+            .then(instance => {
+                phInstance = instance;
+                return instance.createPage();
+            })
+            .then(page => {
+                sitepage = page;
+                return page.open(skybetConfig.baseUrl + url);
+            })
+            .then(status => {
+                console.log(status);
+                return sitepage.property('content');
+            })
+            .then(content => {
+                log.info(skybetConfig.baseUrl + url + ' scraped. Adding to queue');
+                dataDriver.save(
+            		'matchSourceQueue',
+            		JSON.stringify({
+            			site: 'skybet',
+            			content: content
+            		}),
+                    function() {
+                        sitepage.close();
+                        phInstance.exit();
+                        callback();
+                    }
+            	);
+
+            })
+            .catch(error => {
+                console.log(error);
+                phInstance.exit();
+            });
     }
 }
 
-module.exports = match;
+module.exports = Match;

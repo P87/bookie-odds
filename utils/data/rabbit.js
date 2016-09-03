@@ -2,7 +2,7 @@ var config = require('../../config/rabbit');
 var amqp = require('amqplib/callback_api');
 
 var Rabbit = {
-	save: function(queue, data) {
+	save: function(queue, data, callback = null) {
 		amqp.connect(config.server, function(err, conn) {
 			if (err) {
 				throw 'Error connecting to rabbitmq: ' + err;
@@ -18,7 +18,9 @@ var Rabbit = {
 				ch.assertQueue(q, {durable: false});
 				// Note: on Node 6 Buffer.from(msg) should be used
 				ch.sendToQueue(q, new Buffer(data));
-				console.log('Added to queue: ' + config[queue]);
+				log.info('Added to queue: ' + config[queue]);
+				if (typeof callback == 'function')
+					callback()
 			});
 			setTimeout(function() { conn.close(); }, 500);
 		});
@@ -40,7 +42,7 @@ var Rabbit = {
 				ch.assertQueue(q, {durable: false});
 				ch.prefetch(1);
 				ch.consume(q, function(msg) {
-					console.log('Retrieved item from queue: ' + config[queue]);
+					log.info('Retrieved item from queue: ' + config[queue]);
 					callback(msg, ch);
 				});
 
