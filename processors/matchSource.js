@@ -11,10 +11,10 @@ var MatchSource = {
 		dataDriver.get('matchSourceQueue', function(msg, ch) {
 			var data = JSON.parse(msg.content.toString());
 		    var parser = require('../parsers/' + data.site + '/match');
-			var teams = parser.getTeams(data.content);
-		    var stats = parser.getStats(data.content);
-
 			// @todo Save data and acknowledge message
+
+			// var teams = parser.getTeams(data.content);
+		    // var stats = parser.getStats(data.content);
 			// ch.ack(msg);
 		});
 	}

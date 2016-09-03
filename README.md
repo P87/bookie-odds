@@ -17,20 +17,20 @@ Where task is one of:
 ### General flow to follow
 #### Get list of live games
 ```
-node index.js --site <skybet> crawl liveMatches
+node index.js --site <skybet> crawl liveMatches | node_modules/.bin/bunyan
 ```
 
 #### Process list of live matches
 ```
-node index.js process liveMatches
+node index.js process liveMatches | node_modules/.bin/bunyan
 ```
 
 #### Get the source of each live match
 ```
-node index.js process match
+node index.js process match | node_modules/.bin/bunyan
 ```
 
 #### Get stats from each crawled live match
 ```
-node index.js process matchSource
+node index.js process matchSource | node_modules/.bin/bunyan
 ```
