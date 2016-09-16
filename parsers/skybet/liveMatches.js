@@ -1,14 +1,14 @@
 var Parser = {
-	/**
-	 * Retrieve a list of live matches from the given html
-	 * @param  {string} html The html of the skybet football page
-	 * @return {array} array of unique live football match urls
-	 */
-	getMatches: function(html) {
-		return array_unique(
-			html.match(/\/football\/football-live\/event\/([0-9]*)/g)
-		);
-	}
+    /**
+     * Retrieve a list of live matches from the given html
+     * @param  {string} html The html of the skybet football page
+     * @return {array} array of unique live football match urls
+     */
+     getMatches: function(html) {
+         return array_unique(
+             html.match(/\/football\/football-live\/event\/([0-9]*)/g)
+         );
+     }
 }
 
 function array_unique(a) {
