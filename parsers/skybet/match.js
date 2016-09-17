@@ -4,6 +4,19 @@ var Parser = {
         return teams[1];
     },
 
+    getScore: function(html) {
+        var home = html.match(
+            /<div class="scoreboard--football__score js-scoreboard__score-home">\n\s+([0-9]+)\s+<\/div>/
+        );
+        var away = html.match(
+            /<div class="scoreboard--football__score js-scoreboard__score-away">\n\s+([0-9]+)\s+<\/div>/
+        );
+        return {
+            home: home[1],
+            away: away[1]
+        }
+    },
+
     getStats: function(html) {
         return {
             possession: this.extractStat('js-stat-possession', html),
