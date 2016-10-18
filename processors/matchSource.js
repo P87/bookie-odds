@@ -5,7 +5,7 @@
 
 var projectConfig = require('../config/project');
 var dataDriver = require('../utils/data/' + projectConfig.saver);
-// var mongo = require('../utils/data/mongo');
+var mongo = require('../utils/data/mongo');
 
 var MatchSource = {
     run: function() {
@@ -17,6 +17,13 @@ var MatchSource = {
             var score = parser.getScore(data.content);
             var stats = parser.getStats(data.content);
 
+            log.info(teams);
+            log.info(score);
+            log.info(stats);
+
+            mongo.saveMatchInfo(teams, score, stats, function() {
+                process.exit();
+            });
             // @todo parse the odds
             // ch.ack(msg);
 });
