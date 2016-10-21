@@ -19,7 +19,7 @@ var LiveMatches = {
 
                     page.property('content').then(function(content) {
                         log.info(skybetConfig.liveUrl + ' scraped. Adding to queue...');
-                        queueDriver.save('sourceQueue', JSON.stringify({site: 'skybet', content: content}));
+                        queueDriver.save('sourceQueue', {site: 'skybet', content: content});
                         page.close();
                         ph.exit();
                     });
