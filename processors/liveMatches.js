@@ -4,11 +4,11 @@
  */
 
 var projectConfig = require('../config/project');
-var dataDriver = require('../utils/data/' + projectConfig.saver);
+var queueDriver = require('../utils/queue/' + projectConfig.queueDriver);
 
 var LiveMatches = {
     run: function() {
-        dataDriver.get('sourceQueue', function(msg, ch) {
+        queueDriver.get('sourceQueue', function(msg, ch) {
             var data = JSON.parse(msg.content.toString());
             var parser = require('../parsers/' + data.site + '/liveMatches');
             var matches = parser.getMatches(data.content);

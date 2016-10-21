@@ -4,12 +4,12 @@
  */
 
 var projectConfig = require('../config/project');
-var dataDriver = require('../utils/data/' + projectConfig.saver);
+var queueDriver = require('../utils/queue/' + projectConfig.queueDriver);
 // var mongo = require('../utils/data/mongo');
 
 var MatchSource = {
     run: function() {
-        dataDriver.get('matchSourceQueue', function(msg, ch) {
+        queueDriver.get('matchSourceQueue', function(msg, ch) {
             var data = JSON.parse(msg.content.toString());
             var parser = require('../parsers/' + data.site + '/match');
 
