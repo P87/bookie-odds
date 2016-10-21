@@ -1,5 +1,5 @@
 var Config = {
-	saver: 'rabbit',
+	queueDriver: 'rabbit',
 	logLevel: 'debug'
 }
 
