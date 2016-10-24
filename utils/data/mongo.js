@@ -11,6 +11,9 @@ var Mongo = {
      * @param  {function} callback
      */
     saveMatchInfo: function(teams, score, stats, callback) {
+        if (!teams || !score || !stats) {
+            return callback();
+        }
         var mongoUrl = mongoConfig.server + mongoConfig.statsDb;
         MongoClient.connect(mongoUrl, function(err, db) {
             if (err) {

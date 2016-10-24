@@ -15,17 +15,20 @@ var MatchSource = {
 
             var teams = parser.getTeams(data.content);
             var score = parser.getScore(data.content);
-            var stats = parser.getStats(data.content);
+            var stats = teams && score ?
+                parser.getStats(data.content) :
+                false;
 
             log.info(teams);
             log.info(score);
             log.info(stats);
 
             mongo.saveMatchInfo(teams, score, stats, function() {
-                process.exit();
+                ch.ack(msg);
             });
             // @todo parse the odds
-            // ch.ack(msg);
+
+
 });
 }
 }
