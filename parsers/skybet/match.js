@@ -47,6 +47,12 @@ var Parser = {
         };
     },
 
+    /**
+     * Build the regex to find the value of the given stat html class
+     * @param  {string} className The stat's html class value
+     * @param  {string} team      home|away
+     * @return {RegExp}
+     */
     buildRegex: function(className, team) {
         return new RegExp(
             '<div class="percentage-bar__[A-z]+  ' +

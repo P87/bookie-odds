@@ -30,7 +30,7 @@ var Mongo = {
             db.close();
 
             return callback();
-    });
+        });
     }
 }
 

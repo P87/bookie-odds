@@ -27,10 +27,8 @@ var MatchSource = {
                 ch.ack(msg);
             });
             // @todo parse the odds
-
-
-});
-}
+        });
+    }
 }
 
 module.exports = MatchSource;
