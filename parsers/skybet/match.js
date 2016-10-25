@@ -1,7 +1,11 @@
 var Parser = {
     getTeams: function(html) {
         var teams = html.match(/<h1 class=".*"><b>(.*)<\/b><\/h1>/);
-        return teams[1];
+        if (teams) {
+            return teams[1];
+        }
+        log.error('There was an error extracting the team names.');
+        return false;
     },
 
     getScore: function(html) {
@@ -11,10 +15,14 @@ var Parser = {
         var away = html.match(
             /<div class="scoreboard--football__score js-scoreboard__score-away">\n\s+([0-9]+)\s+<\/div>/
         );
-        return {
-            home: home[1],
-            away: away[1]
+        if (home && away) {
+            return {
+                home: home[1],
+                away: away[1]
+            }
         }
+        log.error('There was an error extracting the score');
+        return false;
     },
 
     getStats: function(html) {
@@ -39,6 +47,12 @@ var Parser = {
         };
     },
 
+    /**
+     * Build the regex to find the value of the given stat html class
+     * @param  {string} className The stat's html class value
+     * @param  {string} team      home|away
+     * @return {RegExp}
+     */
     buildRegex: function(className, team) {
         return new RegExp(
             '<div class="percentage-bar__[A-z]+  ' +

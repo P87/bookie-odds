@@ -3,7 +3,6 @@ var Config = {
     sourceQueue: 'liveGames', // Name of queue storing html of live games pages
     matchQueue: 'matchUrls', // Name of queue storing urls to live games
     matchSourceQueue: 'matchSource'
-
 }
 
 module.exports = Config;
