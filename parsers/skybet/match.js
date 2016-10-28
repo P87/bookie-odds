@@ -25,6 +25,15 @@ var Parser = {
         return false;
     },
 
+    getGameTime: function(html) {
+        var time = html.match(/<span class="scoreboard__clock js-scoreboard__clock">([0-9:])+<\/span>/);
+        if (time) {
+            return time[1];
+        }
+        log.warn('No time was found for this game');
+        return false;
+    },
+
     getStats: function(html) {
         return {
             possession: this.extractStat('js-stat-possession', html),

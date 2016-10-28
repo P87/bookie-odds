@@ -15,12 +15,12 @@ var MatchSource = {
 
             var teams = parser.getTeams(data.content);
             var score = parser.getScore(data.content);
+            var time = parser.getGameTime(data.content);
             var stats = teams && score ?
                 parser.getStats(data.content) :
                 false;
 
-            log.info(teams);
-            log.info(score);
+            log.info(teams + " " + score.home + "-" + score.away + " [" + time + "]");
             log.info(stats);
 
             dataDriver.saveMatchInfo(teams, score, stats, function() {
