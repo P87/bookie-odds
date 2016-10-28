@@ -3,11 +3,11 @@
  */
 
 var projectConfig = require('../config/project');
-var dataDriver = require('../utils/data/' + projectConfig.saver);
+var queueDriver = require('../utils/queue/' + projectConfig.queueDriver);
 
 var Match = {
     run: function() {
-        dataDriver.get('matchQueue', function(msg, ch) {
+        queueDriver.get('matchQueue', function(msg, ch) {
             var data = JSON.parse(msg.content.toString());
             var crawler = require('../crawlers/' + data.site + '/match');
             crawler.crawl(data.match, function() {

@@ -2,7 +2,7 @@ var config = require('../../config/rabbit');
 var amqp = require('amqplib/callback_api');
 
 var Rabbit = {
-    save: function(queue, data, callback = null) {
+    save: function(queue, data, callback) {
         amqp.connect(config.server, function(err, conn) {
             if (err) {
                 throw 'Error connecting to rabbitmq: ' + err;

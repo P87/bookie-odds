@@ -14,8 +14,8 @@ var Mongo = {
         if (!teams || !score || !stats) {
             return callback();
         }
-        var mongoUrl = mongoConfig.server + mongoConfig.statsDb;
-        MongoClient.connect(mongoUrl, function(err, db) {
+
+        MongoClient.connect(mongoConfig.server, function(err, db) {
             if (err) {
                 throw 'Error connecting to mongo: ' + err;
             }

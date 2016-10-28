@@ -34,7 +34,7 @@ var Parser = {
         }
     },
 
-    extractStat(className, html) {
+    extractStat: function(className, html) {
         var homere = this.buildRegex(className, 'home');
         var awayre = this.buildRegex(className, 'away');
 

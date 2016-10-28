@@ -1,6 +1,6 @@
 var projectConfig = require('../../config/project');
 var skybetConfig = require('../../config/skybet');
-var dataDriver = require('../../utils/data/' + projectConfig.saver);
+var queueDriver = require('../../utils/queue/' + projectConfig.queueDriver);
 
 var Match = {
     crawl: function(url, callback) {
@@ -17,12 +17,12 @@ var Match = {
                 return page.open(skybetConfig.baseUrl + url);
             })
             .then(status => {
-                console.log(status);
+                log.debug(status);
                 return sitepage.property('content');
             })
             .then(content => {
                 log.info(skybetConfig.baseUrl + url + ' scraped. Adding to queue');
-                dataDriver.save(
+                queueDriver.save(
             		'matchSourceQueue',
             		JSON.stringify({
             			site: 'skybet',
@@ -37,7 +37,7 @@ var Match = {
 
             })
             .catch(error => {
-                console.log(error);
+                log.error(error);
                 phInstance.exit();
             });
     }

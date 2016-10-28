@@ -4,12 +4,12 @@
  */
 
 var projectConfig = require('../config/project');
-var dataDriver = require('../utils/data/' + projectConfig.saver);
-var mongo = require('../utils/data/mongo');
+var queueDriver = require('../utils/queue/' + projectConfig.queueDriver);
+var dataDriver = require('../utils/data/' + projectConfig.dataDriver);
 
 var MatchSource = {
     run: function() {
-        dataDriver.get('matchSourceQueue', function(msg, ch) {
+        queueDriver.get('matchSourceQueue', function(msg, ch) {
             var data = JSON.parse(msg.content.toString());
             var parser = require('../parsers/' + data.site + '/match');
 
@@ -23,7 +23,7 @@ var MatchSource = {
             log.info(score);
             log.info(stats);
 
-            mongo.saveMatchInfo(teams, score, stats, function() {
+            dataDriver.saveMatchInfo(teams, score, stats, function() {
                 ch.ack(msg);
             });
             // @todo parse the odds

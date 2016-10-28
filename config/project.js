@@ -1,5 +1,6 @@
 var Config = {
-	saver: 'rabbit',
+	queueDriver: 'rabbit',
+	dataDriver: 'mongo',
 	logLevel: 'debug'
 }
 
