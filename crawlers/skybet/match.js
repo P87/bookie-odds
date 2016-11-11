@@ -1,45 +1,32 @@
+/**
+ * Get the source code for a live match and add it to our queue
+ */
+
 var projectConfig = require('../../config/project');
 var skybetConfig = require('../../config/skybet');
 var queueDriver = require('../../utils/queue/' + projectConfig.queueDriver);
+var request = require('request');
 
 var Match = {
     crawl: function(url, callback) {
-        var phantom = require('phantom');
-        var sitepage = null;
-        var phInstance = null;
-        phantom.create()
-            .then(instance => {
-                phInstance = instance;
-                return instance.createPage();
-            })
-            .then(page => {
-                sitepage = page;
-                return page.open(skybetConfig.baseUrl + url);
-            })
-            .then(status => {
-                log.debug(status);
-                return sitepage.property('content');
-            })
-            .then(content => {
+        request(
+            {
+                uri: skybetConfig.baseUrl + url
+            },
+            function(error, response, body) {
                 log.info(skybetConfig.baseUrl + url + ' scraped. Adding to queue');
                 queueDriver.save(
-            		'matchSourceQueue',
-            		JSON.stringify({
-            			site: 'skybet',
-            			content: content
-            		}),
+                    'matchSourceQueue',
+                    JSON.stringify({
+                        site: 'skybet',
+                        content: body
+                    }),
                     function() {
-                        sitepage.close();
-                        phInstance.exit();
                         callback();
                     }
-            	);
-
-            })
-            .catch(error => {
-                log.error(error);
-                phInstance.exit();
-            });
+                );
+            }
+        );
     }
 }
 
