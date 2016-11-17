@@ -12,7 +12,7 @@
     "amqplib": "^0.4.2",
     "bunyan": "^1.8.1",
     "mongodb": "^2.2.9",
-    "phantom": "^2.1.20",
-    "request": "^2.74.0"
+    "phantom": "^3.0.2",
+    "request": "^2.78.0"
   }
 }

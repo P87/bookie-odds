@@ -12,18 +12,11 @@ var MatchSource = {
         queueDriver.get('matchSourceQueue', function(msg, ch) {
             var data = JSON.parse(msg.content.toString());
             var parser = require('../parsers/' + data.site + '/match');
+            var matchData = parser.parseSource(data.content);
 
-            var teams = parser.getTeams(data.content);
-            var score = parser.getScore(data.content);
-            var stats = teams && score ?
-                parser.getStats(data.content) :
-                false;
+            log.info(matchData);
 
-            log.info(teams);
-            log.info(score);
-            log.info(stats);
-
-            dataDriver.saveMatchInfo(teams, score, stats, function() {
+            dataDriver.saveMatchInfo(matchData, function() {
                 ch.ack(msg);
             });
             // @todo parse the odds

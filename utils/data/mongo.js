@@ -10,23 +10,15 @@ var Mongo = {
      * @param  {object} stats The stats for the game, possession etc.
      * @param  {function} callback
      */
-    saveMatchInfo: function(teams, score, stats, callback) {
-        if (!teams || !score || !stats) {
-            return callback();
-        }
-
+    saveMatchInfo: function(matchData, callback) {
         MongoClient.connect(mongoConfig.server, function(err, db) {
             if (err) {
                 throw 'Error connecting to mongo: ' + err;
             }
             log.info("Connected successfully to server");
             var collection = db.collection('games');
-            var data = {
-                match: teams,
-                score: score,
-                stats: stats
-            }
-            collection.insert(data);
+
+            collection.insertOne(matchData);
             db.close();
 
             return callback();
