@@ -1,72 +1,55 @@
 var Parser = {
-    getTeams: function(html) {
-        var teams = html.match(/<h1 class=".*"><b>(.*)<\/b><\/h1>/);
-        if (teams) {
-            return teams[1];
+
+    data: null,
+
+    parseSource: function(html) {
+        var matchData = html.match(/window\.meta = ({.*});/);
+        matchData = JSON.parse(matchData[1]);
+        Parser.data = matchData.scoreboard;
+
+        return {
+            teams: {
+                home: Parser.data.teams.home.name,
+                away: Parser.data.teams.away.name
+            },
+            score: {
+                home: Parser.data.score.home,
+                away: Parser.data.score.away
+            },
+            gameTime: Parser.data.seconds / 60,
+            stats: Parser.getStats()
         }
-        log.error('There was an error extracting the team names.');
-        return false;
     },
 
-    getScore: function(html) {
-        var home = html.match(
-            /<div class="scoreboard--football__score js-scoreboard__score-home">\n\s+([0-9]+)\s+<\/div>/
-        );
-        var away = html.match(
-            /<div class="scoreboard--football__score js-scoreboard__score-away">\n\s+([0-9]+)\s+<\/div>/
-        );
-        if (home && away) {
-            return {
-                home: home[1],
-                away: away[1]
+    getStats: function() {
+        var stats = {
+            possession: {
+                home: Parser.data.stats.possession.home,
+                away: Parser.data.stats.possession.away
+            },
+            corners: {
+                home: Parser.data.stats.corner.home,
+                away: Parser.data.stats.corner.away
+            },
+            shotsOnTarget: {
+                home: Parser.data.stats.shotOn.home,
+                away: Parser.data.stats.shotOn.away
+            },
+            shotsOffTarget: {
+                home: Parser.data.stats.shotOff.home,
+                away: Parser.data.stats.shotOff.away
+            }
+        };
+
+        // Seems not all games have this stat
+        if (typeof Parser.data.stats.shotWood !== 'undefined') {
+            stats.shotsHitPost = {
+                home: Parser.data.stats.shotWood.home,
+                away: Parser.data.stats.shotWood.away
             }
         }
-        log.error('There was an error extracting the score');
-        return false;
-    },
 
-    getGameTime: function(html) {
-        var time = html.match(/<span class="scoreboard__clock js-scoreboard__clock">([0-9:])+<\/span>/);
-        if (time) {
-            return time[1];
-        }
-        log.warn('No time was found for this game');
-        return false;
-    },
-
-    getStats: function(html) {
-        return {
-            possession: this.extractStat('js-stat-possession', html),
-            corners: this.extractStat('js-stat-corner', html),
-            shotsOnTarget: this.extractStat('js-stat-ontarget', html),
-            shotsOffTarget: this.extractStat('js-stat-offtarget', html)
-        }
-    },
-
-    extractStat: function(className, html) {
-        var homere = this.buildRegex(className, 'home');
-        var awayre = this.buildRegex(className, 'away');
-
-        var homeStat = homere.exec(html);
-        var awayStat = awayre.exec(html);
-
-        return {
-            home: homeStat[1],
-            away: awayStat[1]
-        };
-    },
-
-    /**
-     * Build the regex to find the value of the given stat html class
-     * @param  {string} className The stat's html class value
-     * @param  {string} team      home|away
-     * @return {RegExp}
-     */
-    buildRegex: function(className, team) {
-        return new RegExp(
-            '<div class="percentage-bar__[A-z]+  ' +
-            className + '-' + team + '">([0-9]+)%?<\/div>'
-        );
+        return stats;
     }
 }
 

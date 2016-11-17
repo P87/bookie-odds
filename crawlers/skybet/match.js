@@ -14,6 +14,9 @@ var Match = {
                 uri: skybetConfig.baseUrl + url
             },
             function(error, response, body) {
+                if (error) {
+                    log.error('Error requesting ' + skybetConfig.baseUrl + url);
+                }
                 log.info(skybetConfig.baseUrl + url + ' scraped. Adding to queue');
                 queueDriver.save(
                     'matchSourceQueue',
