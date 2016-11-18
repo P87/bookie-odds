@@ -20,12 +20,19 @@ Where task is one of:
 node index.js --site <skybet> crawl liveMatches | node_modules/.bin/bunyan
 ```
 
+This will crawl a page which lists all the currently live football games, and adds links to each game to a queue.
+
 #### Get the source of each live match
 ```
 node index.js process match | node_modules/.bin/bunyan
 ```
 
+This will grab the address of a live football game from the queue, and add the source code of the page to a second queue.
+
 #### Get stats from each crawled live match
 ```
 node index.js process matchSource | node_modules/.bin/bunyan
 ```
+
+This will grab the source code of a live football page from our queue and extract the data we are looking for and save
+it in our database.
