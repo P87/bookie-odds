@@ -46,10 +46,6 @@ switch (args[0]) {
         break;
     case 'process':
         switch (args[1]) {
-            case 'liveMatches':
-                var liveMatches = require('./processors/liveMatches');
-                liveMatches.run();
-                break;
             case 'match':
                 var match = require('./processors/match');
                 match.run();

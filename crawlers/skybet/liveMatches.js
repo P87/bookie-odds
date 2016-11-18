@@ -6,6 +6,7 @@
 var projectConfig = require('../../config/project.json');
 var skybetConfig = require('../../config/skybet.json');
 var queueDriver = require('../../utils/queue/' + projectConfig.queueDriver);
+var parser = require('../../parsers/skybet/liveMatches');
 var request = require('request');
 
 var LiveMatches = {
@@ -16,7 +17,18 @@ var LiveMatches = {
             },
             function(error, response, body) {
                 log.info(skybetConfig.liveUrl + ' scraped. Adding to queue');
-                queueDriver.save('sourceQueue', JSON.stringify({site: 'skybet', content: body}));
+
+                var matches = parser.getMatches(body);
+
+                matches.forEach(function(match) {
+                    queueDriver.save(
+                        'matchQueue',
+                        JSON.stringify({
+                            site: 'skybet',
+                            match: match
+                        })
+                    );
+                });
             }
         );
     }

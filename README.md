@@ -20,11 +20,6 @@ Where task is one of:
 node index.js --site <skybet> crawl liveMatches | node_modules/.bin/bunyan
 ```
 
-#### Process list of live matches
-```
-node index.js process liveMatches | node_modules/.bin/bunyan
-```
-
 #### Get the source of each live match
 ```
 node index.js process match | node_modules/.bin/bunyan
