@@ -3,7 +3,7 @@
  * odds/stats.
  */
 
-var projectConfig = require('../config/project');
+var projectConfig = require('../config/project.json');
 var queueDriver = require('../utils/queue/' + projectConfig.queueDriver);
 var dataDriver = require('../utils/data/' + projectConfig.dataDriver);
 

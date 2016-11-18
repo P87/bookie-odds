@@ -3,7 +3,7 @@
  * and add the urls to our queue.
  */
 
-var projectConfig = require('../config/project');
+var projectConfig = require('../config/project.json');
 var queueDriver = require('../utils/queue/' + projectConfig.queueDriver);
 
 var LiveMatches = {

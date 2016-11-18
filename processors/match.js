@@ -2,7 +2,7 @@
  * Get a url for a live game out of the queue and crawl it.
  */
 
-var projectConfig = require('../config/project');
+var projectConfig = require('../config/project.json');
 var queueDriver = require('../utils/queue/' + projectConfig.queueDriver);
 
 var Match = {

@@ -1,0 +1,5 @@
+{
+	"queueDriver": "rabbit",
+	"dataDriver": "mongo",
+	"logLevel": "debug"
+}

@@ -1,4 +1,4 @@
-var config = require('../../config/rabbit');
+var config = require('../../config/rabbit.json');
 var amqp = require('amqplib/callback_api');
 
 var Rabbit = {

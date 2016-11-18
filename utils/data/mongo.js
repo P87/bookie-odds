@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
-var mongoConfig = require('../../config/mongo');
+var mongoConfig = require('../../config/mongo.json');
 
 var Mongo = {
     /**

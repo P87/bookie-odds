@@ -1,0 +1,6 @@
+{
+	"server": "amqp://localhost",
+	"sourceQueue": "liveGamesSource",
+	"matchQueue": "matches",
+	"matchSourceQueue": "matchSource"
+}

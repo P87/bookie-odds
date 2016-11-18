@@ -2,8 +2,8 @@
  * Get the source code for a live match and add it to our queue
  */
 
-var projectConfig = require('../../config/project');
-var skybetConfig = require('../../config/skybet');
+var projectConfig = require('../../config/project.json');
+var skybetConfig = require('../../config/skybet.json');
 var queueDriver = require('../../utils/queue/' + projectConfig.queueDriver);
 var request = require('request');
 

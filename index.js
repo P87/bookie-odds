@@ -1,4 +1,4 @@
-var projectConfig = require('./config/project');
+var projectConfig = require('./config/project.json');
 var bunyan = require('bunyan');
 log = bunyan.createLogger(
     {
